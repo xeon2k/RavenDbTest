@@ -8,7 +8,7 @@ namespace RavenDbTest
     {
         static void Main(string[] args)
         {
-            IDocumentStore store = new DocumentStore { Urls = new[]{ "http://localhost:8080" } , Database = "Persons"};
+            IDocumentStore store = new DocumentStore { Urls = new[]{ "http://localhost:8080" } , Database = "Person"};
             store.Initialize();
 
             var person = new Person { Name = "Nitin" };
@@ -16,9 +16,11 @@ namespace RavenDbTest
             session.Store(person);
             session.SaveChanges();
 
+            Console.WriteLine($"Person record created with Id {person.Id}");
+
             Person loadedPerson = session.Load<Person>(person.Id.ToString());
 
-            Console.WriteLine(loadedPerson.Name);
+            Console.WriteLine($"Person record loaded for Id {loadedPerson.Id}");
         }
     }
 
